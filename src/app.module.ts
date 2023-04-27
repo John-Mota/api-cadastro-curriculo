@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CandidatoController } from './candidato/candidato.controller';
 import { CandidatoModule } from './candidato/candidato.module';
+import { CurriculumModule } from './curriculum/curriculum.module';
 
 @Module({
-  imports: [CandidatoModule],
+  imports: [CandidatoModule, CurriculumModule],
   controllers: [AppController, CandidatoController],
   providers: [AppService],
 })
