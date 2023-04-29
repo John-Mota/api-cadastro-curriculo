@@ -7,7 +7,7 @@ import { CurriculumController } from './curriculum.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Curriculum, CurriculumRepository])],
-  providers: [CurriculumService, CurriculumRepository], // Adicione o CurriculumRepository aqui
+  providers: [CurriculumService, CurriculumRepository],
   controllers: [CurriculumController],
   exports: [CurriculumService],
 })

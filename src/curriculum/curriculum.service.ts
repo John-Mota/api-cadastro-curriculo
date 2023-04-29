@@ -4,16 +4,12 @@ import { CurriculumDto } from 'src/dto/curriculo.dto';
 import { Curriculum } from 'src/entitys/curriculum.entity';
 import { CurriculumRepository } from 'src/repositories/curriculum.repository';
 
-
 @Injectable()
 export class CurriculumService {
-  private readonly curriculums: Curriculum[] = [];
-
   constructor(
     @InjectRepository(CurriculumRepository)
-    private curriculumRepository: CurriculumRepository,
+    private readonly curriculumRepository: CurriculumRepository,
   ) {}
-
   async create(curriculumDto: CurriculumDto): Promise<Curriculum> {
     const curriculum = new Curriculum();
     curriculum.nome = curriculumDto.nome;
@@ -29,20 +25,14 @@ export class CurriculumService {
   }
 
   async findAll(): Promise<Curriculum[]> {
-    console.log('curriculums', this.curriculums.values);
-    return this.curriculums;
+    return this.curriculumRepository.find();
   }
 
   async findOne(id: number): Promise<Curriculum> {
-    return this.curriculums.find((curriculum) => curriculum.id === id);
+    return this.curriculumRepository.findOne({ where: { id: id } });
   }
 
   async remove(id: number): Promise<void> {
-    const index = this.curriculums.findIndex(
-      (curriculum) => curriculum.id === id,
-    );
-    if (index !== -1) {
-      this.curriculums.splice(index, 1);
-    }
+    await this.curriculumRepository.delete(id);
   }
 }
