@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsEnum, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-enum Escolaridade {
+export enum Escolaridade {
   AN, // Analfabeto
   FC, // Fundamental Completo
   MI, // Médio Incompleto
@@ -17,8 +17,8 @@ class CompetenciaDto {
   @IsString()
   descricao: string;
 
-  @IsEnum(['BAIXO', 'MEDIO', 'ALTO'])
-  nivel: string;
+  @IsEnum(['1', '2', '3', '4', '5'])
+  nivel: '1' | '2' | '3' | '4' | '5';
 }
 
 export class CurriculumDto {
