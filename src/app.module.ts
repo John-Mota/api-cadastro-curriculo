@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CandidatoController } from './candidato/candidato.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { CandidatoModule } from './candidato/candidato.module';
 import { CurriculumModule } from './curriculum/curriculum.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { CurriculumRepository } from './repositories/curriculum.repository';
+import { CurriculumService } from './curriculum/curriculum.service';
+import { CandidatoController } from './candidato/candidato.controller';
+import { CandidatoService } from './candidato/candidato.service';
 
 @Module({
   imports: [
@@ -17,12 +20,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'postgres',
       password: 'postgres',
       database: 'cadastrocurriculum',
-      entities: [__dirname + '/**/*.entity.js'],
+      entities: [__dirname + '/**/*.entity.js', CurriculumRepository],
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([CurriculumRepository]), // Adicione esta linha
   ],
   controllers: [AppController, CandidatoController],
-  providers: [AppService],
+  providers: [AppService, CurriculumService, CandidatoService],
 })
 export class AppModule {}

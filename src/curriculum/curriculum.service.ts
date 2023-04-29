@@ -2,18 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CurriculumDto } from 'src/dto/curriculo.dto';
 import { Curriculum } from 'src/entitys/curriculum.entity';
-import { Repository } from 'typeorm';
+import { CurriculumRepository } from 'src/repositories/curriculum.repository';
+
 
 @Injectable()
 export class CurriculumService {
+  private readonly curriculums: Curriculum[] = [];
+
   constructor(
-    @InjectRepository(Curriculum)
-    private readonly curriculumRepository: Repository<Curriculum>,
+    @InjectRepository(CurriculumRepository)
+    private curriculumRepository: CurriculumRepository,
   ) {}
 
   async create(curriculumDto: CurriculumDto): Promise<Curriculum> {
     const curriculum = new Curriculum();
-
     curriculum.nome = curriculumDto.nome;
     curriculum.cpf = curriculumDto.cpf;
     curriculum.dataNascimento = new Date(curriculumDto.dataNascimento);
@@ -27,14 +29,20 @@ export class CurriculumService {
   }
 
   async findAll(): Promise<Curriculum[]> {
-    return this.curriculumRepository.find();
+    console.log('curriculums', this.curriculums.values);
+    return this.curriculums;
   }
 
   async findOne(id: number): Promise<Curriculum> {
-    return this.curriculumRepository.findOne({ where: { id } });
+    return this.curriculums.find((curriculum) => curriculum.id === id);
   }
 
   async remove(id: number): Promise<void> {
-    await this.curriculumRepository.delete(id);
+    const index = this.curriculums.findIndex(
+      (curriculum) => curriculum.id === id,
+    );
+    if (index !== -1) {
+      this.curriculums.splice(index, 1);
+    }
   }
 }

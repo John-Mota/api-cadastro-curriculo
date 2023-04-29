@@ -9,7 +9,7 @@ export class CandidatoController {
   @Get()
   async findAll(): Promise<Curriculum[]> {
     const candidatos = await this.curriculumService.findAll();
-    return { candidatos };
+    return candidatos;
   }
 
   @Get(':id')
