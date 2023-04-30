@@ -11,6 +11,7 @@ export class CurriculumController {
     @Body() createCurriculumDto: CurriculumDto,
   ): Promise<Curriculum> {
     console.log(createCurriculumDto);
+    console.log(createCurriculumDto);
     return this.curriculumService.create(createCurriculumDto);
   }
 

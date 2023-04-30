@@ -29,7 +29,7 @@ export class CurriculumDto {
   cpf: string;
 
   @IsString()
-  dataNascimento: string;
+  dataNascimento: Date;
 
   @IsEmail()
   email: string;

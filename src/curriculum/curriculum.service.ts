@@ -4,7 +4,6 @@ import { CurriculumDto } from 'src/dto/curriculo.dto';
 import { Curriculum } from 'src/entitys/curriculum.entity';
 import { CurriculumRepository } from 'src/repositories/curriculum.repository';
 
-
 @Injectable()
 export class CurriculumService {
   private readonly curriculums: Curriculum[] = [];
@@ -18,7 +17,7 @@ export class CurriculumService {
     const curriculum = new Curriculum();
     curriculum.nome = curriculumDto.nome;
     curriculum.cpf = curriculumDto.cpf;
-    curriculum.dataNascimento = new Date(curriculumDto.dataNascimento);
+    curriculum.dataNascimento = curriculumDto.dataNascimento;
     curriculum.email = curriculumDto.email;
     curriculum.telefone = curriculumDto.telefone;
     curriculum.escolaridade = curriculumDto.escolaridade;
@@ -29,8 +28,7 @@ export class CurriculumService {
   }
 
   async findAll(): Promise<Curriculum[]> {
-    console.log('curriculums', this.curriculums.values);
-    return this.curriculums;
+    return this.curriculumRepository.find();
   }
 
   async findOne(id: number): Promise<Curriculum> {
