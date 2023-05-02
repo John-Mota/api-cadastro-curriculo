@@ -27,7 +27,7 @@ export class Curriculo {
   @Column()
   funcao: string;
 
-  @OneToMany(() => Competencia, (competencia) => competencia.candidato, {
+  @OneToMany(() => Competencia, (competencia) => competencia.curriculo, {
     cascade: true,
   })
   competencias: Competencia[];

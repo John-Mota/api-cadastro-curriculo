@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Curriculo } from './curriculo.entity';
 
 @Entity()
@@ -12,6 +18,10 @@ export class Competencia {
   @Column()
   nivel: string;
 
-  @ManyToOne(() => Curriculo, (candidato) => candidato.competencias)
-  candidato: Curriculo;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @ManyToOne((type) => Curriculo, (curriculo) => curriculo.competencias, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'curriculo_id' })
+  curriculo: Curriculo;
 }
