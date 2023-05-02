@@ -1,13 +1,7 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Curriculo } from './curriculo.entity';
 
-@Entity()
+@Entity('competencias')
 export class Competencia {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,9 +12,6 @@ export class Competencia {
   @Column()
   nivel: string;
 
-  @ManyToOne((type) => Curriculo, (curriculo) => curriculo.competencias, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'curriculo_id' })
+  @ManyToOne(() => Curriculo, (curriculo) => curriculo.competencias)
   curriculo: Curriculo;
 }

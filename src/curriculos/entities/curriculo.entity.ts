@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Competencia } from './competencias.entity';
 
-@Entity()
+@Entity('curriculos')
 export class Curriculo {
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,7 +34,9 @@ export class Curriculo {
   @Column()
   funcao: string;
 
-  @ManyToMany((type) => Competencia)
   @JoinTable()
+  @ManyToMany(() => Competencia, (competencia) => competencia.curriculo, {
+    cascade: true,
+  })
   competencias: Competencia[];
 }

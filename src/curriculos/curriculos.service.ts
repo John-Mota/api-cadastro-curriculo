@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Curriculo } from './entities/curriculo.entity';
@@ -25,12 +25,15 @@ export class CurriculosService {
   }
 
   async findAll() {
-    return this.curriculoRepository.find();
+    return this.curriculoRepository.find({
+      relations: ['competencias'],
+    });
   }
 
   async findOne(id: number) {
     const curriculo = await this.curriculoRepository.findOne({
       where: { id },
+      relations: ['competencias'],
     });
     return curriculo;
   }
@@ -47,7 +50,7 @@ export class CurriculosService {
   async remove(id: number) {
     const curriculo = await this.curriculoRepository.findOne({ where: { id } });
     if (!curriculo) {
-      throw new Error('Curriculo não encontrado');
+      throw new NotFoundException(`curriculum ID ${id} NOT FOUND`);
     }
     await this.curriculoRepository.remove(curriculo);
   }
