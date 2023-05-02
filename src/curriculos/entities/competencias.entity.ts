@@ -18,7 +18,6 @@ export class Competencia {
   @Column()
   nivel: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToOne((type) => Curriculo, (curriculo) => curriculo.competencias, {
     onDelete: 'CASCADE',
   })

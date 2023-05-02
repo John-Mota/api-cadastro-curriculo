@@ -1,4 +1,11 @@
-import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from 'typeorm';
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  Entity,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Competencia } from './competencias.entity';
 
 @Entity()
@@ -27,8 +34,7 @@ export class Curriculo {
   @Column()
   funcao: string;
 
-  @OneToMany(() => Competencia, (competencia) => competencia.curriculo, {
-    cascade: true,
-  })
+  @ManyToMany((type) => Competencia)
+  @JoinTable()
   competencias: Competencia[];
 }

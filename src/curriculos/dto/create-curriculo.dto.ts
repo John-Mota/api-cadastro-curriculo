@@ -6,10 +6,8 @@ export class CandidatoDTO {
   telefone: string;
   escolaridade: string;
   funcao: string;
-  competencias: CompetenciaDTO[];
-}
-
-export interface CompetenciaDTO {
-  descricao: string;
-  nivel: string;
+  competencias: {
+    descricao: string;
+    nivel: string;
+  }[];
 }

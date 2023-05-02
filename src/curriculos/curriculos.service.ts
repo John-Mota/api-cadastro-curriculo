@@ -12,13 +12,16 @@ import { CompetenciaRepository } from './entities/competencia.repository';
 export class CurriculosService {
   constructor(
     @InjectRepository(Curriculo)
-    private curriculoRepository: CurriculoRepository,
-    private competenciaRepository: CompetenciaRepository,
+    private curriculoRepository: Repository<Curriculo>,
+    @InjectRepository(Competencia)
+    private competenciaRepository: Repository<Competencia>,
   ) {}
 
   async create(createCurriculoDto: CandidatoDTO) {
-    const curriculo = this.curriculoRepository.create(createCurriculoDto);
-    return this.curriculoRepository.save(curriculo);
+    const curriculo = createCurriculoDto;
+    this.curriculoRepository.save(curriculo);
+
+    return curriculo;
   }
 
   async findAll() {
@@ -26,13 +29,10 @@ export class CurriculosService {
   }
 
   async findOne(id: number) {
-    const curriculo = await this.curriculoRepository.findOne({ where: { id } });
-    const curriculo2 = await this.curriculoRepository.findOne({
+    const curriculo = await this.curriculoRepository.findOne({
       where: { id },
     });
-    const todo = { curriculo, curriculo2 };
-    console.log(todo);
-    return todo;
+    return curriculo;
   }
 
   async update(id: number, updateCurriculoDto: UpdateCurriculoDto) {
