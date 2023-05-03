@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { CurriculosService } from './curriculos.service';
 import { CandidatoDTO } from './dto/create-curriculo.dto';
@@ -13,6 +15,7 @@ import { UpdateCurriculoDto } from './dto/update-curriculo.dto';
 
 @Controller('curriculos')
 export class CurriculosController {
+  servico: any;
   constructor(private readonly curriculoService: CurriculosService) {}
 
   @Post()
@@ -30,12 +33,17 @@ export class CurriculosController {
     return this.curriculoService.findOne(+id);
   }
 
-  @Patch(':id')
-  async update(
+  @Get('/usuarios')
+  async buscarPorCPF(@Query('cpf') cpf: string): Promise<[]> {
+    return this.servico.buscarPorCPF(cpf);
+  }
+
+  @Put(':id/aprovacao')
+  async updateAprovacao(
     @Param('id') id: string,
-    @Body() updateCurriculoDto: UpdateCurriculoDto,
+    @Body('aprovacao') aprovacao: string,
   ) {
-    return this.curriculoService.update(+id, updateCurriculoDto);
+    return this.curriculoService.updateAprovacao(+id, aprovacao);
   }
 
   @Delete(':id')

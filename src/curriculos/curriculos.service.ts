@@ -36,12 +36,20 @@ export class CurriculosService {
     return curriculo;
   }
 
-  async update(id: number, updateCurriculoDto: UpdateCurriculoDto) {
+  async findByCpf(cpf: string) {
+    const curriculo = await this.curriculoRepository.findOne({
+      where: { cpf },
+      relations: ['competencias'],
+    });
+    return curriculo;
+  }
+
+  async updateAprovacao(id: number, aprovacao: string) {
     const curriculo = await this.curriculoRepository.findOne({ where: { id } });
     if (!curriculo) {
       throw new Error('Curriculo não encontrado');
     }
-    this.curriculoRepository.merge(curriculo, updateCurriculoDto);
+    curriculo.aprovacao = aprovacao;
     return this.curriculoRepository.save(curriculo);
   }
 
