@@ -34,6 +34,9 @@ export class Curriculo {
   @Column()
   funcao: string;
 
+  @Column({ nullable: true })
+  aprovacao: string;
+
   @JoinTable()
   @ManyToMany(() => Competencia, (competencia) => competencia.curriculo, {
     cascade: true,

@@ -5,8 +5,6 @@ import { Curriculo } from './entities/curriculo.entity';
 import { CandidatoDTO } from './dto/create-curriculo.dto';
 import { UpdateCurriculoDto } from './dto/update-curriculo.dto';
 import { Competencia } from './entities/competencias.entity';
-import { CurriculoRepository } from './entities/curriculo.repository';
-import { CompetenciaRepository } from './entities/competencia.repository';
 
 @Injectable()
 export class CurriculosService {
