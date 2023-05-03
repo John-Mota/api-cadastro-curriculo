@@ -12,6 +12,7 @@ import {
 import { CurriculosService } from './curriculos.service';
 import { CandidatoDTO } from './dto/create-curriculo.dto';
 import { UpdateCurriculoDto } from './dto/update-curriculo.dto';
+import { Curriculo } from './entities/curriculo.entity';
 
 @Controller('curriculos')
 export class CurriculosController {
@@ -34,8 +35,8 @@ export class CurriculosController {
   }
 
   @Get('/usuarios')
-  async buscarPorCPF(@Query('cpf') cpf: string): Promise<[]> {
-    return this.servico.buscarPorCPF(cpf);
+  async buscarPorCPF(@Query('cpf') cpf: string): Promise<Curriculo[]> {
+    return this.curriculoService.buscarPorCPF(cpf);
   }
 
   @Put(':id/aprovacao')

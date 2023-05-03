@@ -60,4 +60,8 @@ export class CurriculosService {
     }
     await this.curriculoRepository.remove(curriculo);
   }
+
+  async buscarPorCPF(cpf: string): Promise<Curriculo[]> {
+    return await this.curriculoRepository.find({ where: { cpf } });
+  }
 }
